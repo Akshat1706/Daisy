@@ -1,14 +1,12 @@
 "use client"
 
-
+import Image from 'next/image'
 import { useEffect, useRef, useState} from 'react'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faStopwatch, faHourglass } from '@fortawesome/free-solid-svg-icons';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // import the styles
-import { config } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStopwatch, faHourglass } from '@fortawesome/free-solid-svg-icons';
-
 library.add(faStopwatch);
 library.add(faHourglass);
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +22,28 @@ const Page = () => {
   const [isclicked, setisclicked] = useState(false)
   const [isclicked1, setisclicked1] = useState(true)
   const [inputtime, setinputime] = useState("")
+  const Images = [
+    "/assets/MainFlower.png",
+    "/assets/Petal1.png",
+    "/assets/Petal1.png",
+    "/assets/Petal2.png",
+    "/assets/Petal2.png",
+    "/assets/Petal3.png",
+    "/assets/Petal3.png",
+    "/assets/Petal4.png",
+    "/assets/Petal4.png",
+    "/assets/Petal5.png",
+    "/assets/Petal5.png",
+    "/assets/Petal6.png",
+    "/assets/Petal6.png",
+    "/assets/Petal7.png",
+    "/assets/Petal7.png",
+    "/assets/Petal8.png",
+    "/assets/Petal8.png",
+
+  ]
+
+  const [ImageIndex, SetImageIndex] = useState(0);
 
 
   const handleClick = () => {
@@ -53,20 +73,30 @@ const Page = () => {
     setRunning1((prevState) => !prevState);
   };
 
+  const ResetStopwatch = () => {
+    setTime1(0)
+    SetImageIndex(0)
+  }
+
   const timer = useRef()
   const stopwatch = useRef()
   
   useEffect(() => {
     if (running1) {
       const intervalId = setInterval(() => {
-        setTime1((prevTime) => prevTime + 1); // Update time1 directly
+        setTime1((prevTime) => {
+          if ((prevTime + 1) % 60 === 0) {
+            SetImageIndex((prevIndex) => (prevIndex+1) % Images.length);
+          }
+          return prevTime + 1;
+        });
       }, 1000);
   
       return () => {
         clearInterval(intervalId);
       };
     }
-  }, [running1]);
+  }, [running1, Images]);
     
 
   useEffect(() => {
@@ -90,6 +120,7 @@ const Page = () => {
     return () => clearInterval(timer.current);
   }, [running, running1]);
 
+  
   return (
     <div className="pomodoro">
         <h1 className="heading-pomodoro">Pomodoro</h1>
@@ -127,11 +158,20 @@ const Page = () => {
 
       {isclicked1 && (
         <div>
-          <div className="circle">
-            <h3 className="stopwatch-display">{format(time1)}</h3>
-          </div>
-          <div className="control-panel">
-            <button className="btn restart" onClick={() => setTime1(0)}>
+          
+          <Image src={Images[ImageIndex]}
+          alt="stopwacth"
+          width={1000}
+          height={500}
+          className={`circle ${running1 ? 'rotate' : ''}`}
+          >
+          
+          </Image>
+            
+          
+          <h3 className="stopwatch-display">{format(time1)}</h3>
+          <div className="control-panel stopwatch-control">
+            <button className="btn restart" onClick={ResetStopwatch}>
               Restart
             </button>
             <button

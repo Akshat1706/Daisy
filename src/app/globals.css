@@ -37,6 +37,8 @@ html {
   background-color: var(--background);
 }
 
+/* Home */
+
 .bg-image {
   z-index:-1;
 }
@@ -96,6 +98,8 @@ button:focus-visible {
   background-color: var(--text);
   border: 2px solid var(--background);
 }
+
+/* About */
 
 .about {
   width: 100rem;
@@ -184,7 +188,7 @@ font-family: 'Montserrat', sans-serif;
   font-family: 'Poppins', sans-serif;
 }
 
-
+/* To Do*/
 
 .todo {
   width: 50%;
@@ -415,9 +419,12 @@ a:hover {
 }
 
 
+/* Pomodoro */
+
 .pomodoro {
   width: auto;
   height: 36rem;
+  overflow-y: hidden;
   background-color: var(--background);
 }
 
@@ -435,6 +442,8 @@ a:hover {
   display: flex;
   margin-left: 34rem;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .stopwatch,
@@ -458,8 +467,8 @@ a:hover {
 
 .stopwatch-display {
   font-size: 5rem;
-  margin-left: 0rem;
-  margin-top: -4rem;
+  margin-left: 50rem;
+  margin-top: -25rem;
   cursor: none;
   font-family: 'Poppins', sans-serif;
 }
@@ -476,16 +485,12 @@ a:hover {
 
 
 .circle {
-  width: 22rem;
-  height: 22rem;
-  border-radius: 50%;
-  border: 2px solid white;
-  
-  margin-left: 25rem;
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-left: -11rem;
+  width:867px;
+  height: 648px;
+
+  animation: rotate 3s infinite;
+  margin-top:-9rem;
 }
 
 .start {
@@ -505,11 +510,18 @@ a:hover {
   height: 22rem;
   border-radius: 50%;
   border: 2px solid white;
-  margin-left: 65vh;
-  margin-top: 5vh;
+  margin-left: 26rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: margin-left 300ms ease-in-out, margin-top 300ms ease-in-out;
+}
+
+.stopwatch-control {
+    margin-left: 50rem;
+    margin-top: 1rem;
+
 }
 
 .timer1 {
@@ -519,6 +531,8 @@ a:hover {
   cursor: none;
   font-family: 'Poppins', sans-serif;
 }
+
+/* Chatroom */
 
 .chatroom-body {
     width: 100rem;
@@ -533,6 +547,17 @@ a:hover {
   font-family: 'Montserrat', sans-serif;
   margin-left: 2rem;
   padding-top:3rem;
+}
+
+
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-color-scheme: light) {
